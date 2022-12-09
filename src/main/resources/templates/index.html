@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../static/css/style.css}">
+
+</head>
+<body>
+
+
+
+<table>
+    <th>Book Name </th>
+    <th>ISBN Number </th>
+    <th>Author </th>
+
+
+</table>
+
+<div th:each="book : ${bookDetail}">
+    <p th:text="${book.getId()}"/>
+    <p th:text="${book.getIsbn_no()}"/>
+    <p th:text="${book.getBook_name()}"/>
+    <p th:text="${book.getAuthor_name()}"/> <br>
+
+</div>
+
+</body>
+</html>

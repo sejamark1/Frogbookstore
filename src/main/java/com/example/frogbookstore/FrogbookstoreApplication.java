@@ -10,4 +10,5 @@ public class FrogbookstoreApplication {
         SpringApplication.run(FrogbookstoreApplication.class, args);
     }
 
+
 }
