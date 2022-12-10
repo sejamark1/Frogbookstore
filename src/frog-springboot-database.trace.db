@@ -1280,3 +1280,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: D:/Users/ajina/D
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 102 more
+2022-12-09 23:35:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BOOKSTORE" not found (this database is empty); SQL statement:
+SELECT "BOOKSTORE"."ID" AS "ID", "BOOKSTORE"."ISBN_NO" AS "ISBN_NO", "BOOKSTORE"."BOOK_NAME" AS "BOOK_NAME", "BOOKSTORE"."AUTHOR_NAME" AS "AUTHOR_NAME" FROM "BOOKSTORE" [42104-214]

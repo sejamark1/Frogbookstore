@@ -12,10 +12,11 @@ public class Book {
     private String author_name;
 
 
-
-
-
-
+    public Book(String isbn_no, String book_name, String author_name) {
+        this.isbn_no = isbn_no;
+        this.book_name = book_name;
+        this.author_name = author_name;
+    }
 
     public Integer getId() {
         return id;

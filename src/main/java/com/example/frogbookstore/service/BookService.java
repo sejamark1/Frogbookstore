@@ -14,8 +14,19 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    public Book addBook(String isbn, String bookName, String authorName) {
+        System.out.println("Called");
+        Book newBook = new Book("IBS39933", "ahryr", "aka");
+        bookRepository.save(newBook);
+        return newBook;
+    }
+
     public Iterable<Book> get(){
         return bookRepository.findAll();
 
+    }
+
+    public void deleteBook(Integer id){
+        bookRepository.deleteById(id);
     }
 }

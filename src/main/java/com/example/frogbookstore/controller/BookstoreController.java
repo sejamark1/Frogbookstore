@@ -50,6 +50,25 @@ public class BookstoreController {
     }
 
 
+    @PostMapping("/add-book")
+    public String addBook(){
+        bookService.addBook("IBS39933", "ahryr", "aka");
+        return "addbook.html";
+    }
+//
+//    @PostMapping("/add-book")
+//    public ModelAndView addBook(){
+//        ModelAndView indexPage = new ModelAndView("addbook.html");
+//
+//
+//
+//        return indexPage;
+//    }
+
+
+
+
+
 
 
 //    @RequestMapping("/")
