@@ -10,11 +10,31 @@
 
 <div style="display: flex">
     <h1> Bookstore records</h1>
+</div>
 
 
+
+
+<div th:if="${edit=='yes'}">
+    <p>Edit your data</p>
+
+    <form th:action="@{/updateData}" method="post">
+        <label>ISBN number</label>
+        <input type="text" id="editIsbn" name="isbn" th:value="${editBook.getIsbn_no()}"><br>
+        <label>Book name</label>
+        <input type="text" id="editBookname" name="bookname" th:value="${editBook.getBook_name()}" ><br>
+        <label>Author name</label>
+        <input type="text" id="editAuthorname" name="authorname" th:value="${editBook.getAuthor_name()}"><br>
+        <input type="submit" value="Submit Edit" />
+
+<!--        <a th:href="@{/updateData(id=${editId}, isbn=${editBook.getIsbn_no()}, bookname=${editBook.getBook_name()}, authorname=${editBook.getAuthor_name()})}">-->
+<!--            <input type="submit" value="Submit Edit" />-->
+<!--        </a>-->
+    </form>
 
 </div>
-<div id="main-container" style="display: flex">
+
+<div  th:unless="${edit=='yes'}" id="main-container" style="display: flex">
 
     <div id="view-book-table">
         <table>
@@ -35,8 +55,9 @@
                     </a>
                 </td>
                 <td>
-                    <input type="submit" value="UPDATE" />
-
+                    <a th:href="@{/passRecordToEditForm(id=${book.getId()}, isbn=${book.getIsbn_no()}, bookname=${book.getBook_name()}, authorname=${book.getAuthor_name()})}">
+                        <input type="submit" value="EDIT" />
+                    </a>
                 </td>
             </tr>
         </table>
@@ -45,7 +66,9 @@
 
 
     <div id="add-book-form">
+
         <form th:action="@{/addBook}" method="post">
+
             <label>ISBN number</label>
             <input type="text" id="isbn" name="isbn" ><br>
             <label>Book name</label>
@@ -54,9 +77,6 @@
             <input type="text" id="authorname" name="authorname" ><br>
             <input type="submit" value="Submit">
 
-            <!--            <a th:href="@{/addBook(isbn=${isbn}, bookname=${bookname}, authorname=${authorname})}">-->
-<!--                <input type="submit" value="Submit">-->
-<!--            </a>-->
         </form>
 
     </div>

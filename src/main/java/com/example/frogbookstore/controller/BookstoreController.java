@@ -3,6 +3,7 @@ package com.example.frogbookstore.controller;
 
 import com.example.frogbookstore.entity.Book;
 import com.example.frogbookstore.service.BookService;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.Thymeleaf;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class BookstoreController {
 
     private final BookService bookService;
+    private Integer editId;
     public BookstoreController(BookService bookService) {
         this.bookService = bookService;
     }
@@ -47,7 +47,7 @@ public class BookstoreController {
         return redirectPage("listview", model);
     }
 
-
+    /*CREATE: Create new entity for book*/
     @PostMapping("/addBook")
     public ModelAndView addBook(@RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model){
         //Validation, for empty input.
@@ -58,66 +58,29 @@ public class BookstoreController {
 
 
 
+    /* When edit is pressed, it takes the data and pass it into the form */
+    @GetMapping("/passRecordToEditForm")
+    public ModelAndView passRecordToEditForm(@RequestParam String id, @RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model) {
+        System.out.println(id);
+        ModelAndView indexPage = new ModelAndView("index.html");
+        editId = Integer.parseInt(id);
+        indexPage.addObject("edit", "yes");
+        indexPage.addObject("editId", id);
+        Book editBook = new Book(isbn, bookname,authorname);
+        indexPage.addObject("editBook", editBook);
+        return indexPage;
+    }
 
 
 
-//
-//    @PostMapping("/add-book")
-//    public ModelAndView addBook(){
-//        ModelAndView indexPage = new ModelAndView("addbook.html");
-//
-//
-//
-//        return indexPage;
-//    }
+    @PostMapping("/updateData")
+    public ModelAndView updateData(@RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model){
+        System.out.println(editId);
+        Book newBook = new Book(isbn, bookname, authorname);
+        bookService.updateBook(editId, isbn, bookname, authorname);
+        //bookService.addBook(newBook);
+        editId = null;
+        return redirectPage("listview", model);
+    }
 
-
-
-
-
-
-
-//    @RequestMapping("/")
-//    public ModelAndView index(Model model){
-//        ModelAndView modelAndView = new ModelAndView("index.html");
-//        modelAndView.addObject("key", "Baeldung");
-//        return modelAndView;
-//    }
-
-
-
-
-
-
-
-//
-//    @RequestMapping("/")
-//    public ModelAndView index (Model model) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("index.html");
-//        model.addAttribute("message", "Baeldung");
-//        return modelAndView;
-//    }
-
-
-
-
-
-//    @GetMapping("/")
-//    public Iterable<Book> method(){
-//        for(Book book : bookService.get()) {
-//            System.out.println(book.getId());
-//        }
-//
-//        return bookService.get();
-//    }
-
-//    @GetMapping("/add-newbook")
-//    public String addNewBook(){
-//        return "Hello";
-//    }
-//    @GetMapping("/update-book/{book_id}")
-//    public String updateBook(@PathVariable String book_id){
-//        return "updated data";
-//    }
 }
