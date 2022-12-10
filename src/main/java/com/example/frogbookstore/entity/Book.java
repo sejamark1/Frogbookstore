@@ -1,5 +1,6 @@
 package com.example.frogbookstore.entity;
 
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -7,8 +8,11 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Book {
     @Id
     private Integer id;
+    @NotEmpty
     private String isbn_no;
+    @NotEmpty
     private String book_name;
+    @NotEmpty
     private String author_name;
 
 

@@ -23,38 +23,44 @@ public class BookstoreController {
         this.bookService = bookService;
     }
 
-//    @GetMapping("/")
-//    public ModelAndView homePage() {
-//        ModelAndView modelAndView = new ModelAndView("index.html");
-//        modelAndView.addObject("firstName", "Sergey");
-//        modelAndView.addObject("lastName", "Kargopolov");
-//        System.out.println("implement");
-//        return modelAndView;
-//    }
+    private ModelAndView redirectPage(String redirectTo, ModelMap model){
+        model.addAttribute("attribute", "redirectWithRedirectPrefix");
+        return new ModelAndView("redirect:/" + redirectTo, model);
+    }
 
-
-
-
-
-    @GetMapping("/")
+    /* READ: Fetch all the data from the database and pass it into the index.html file* */
+    @GetMapping({"/listview", "/"})
     public ModelAndView method(){
         ModelAndView indexPage = new ModelAndView("index.html");
         indexPage.addObject("bookDetail", bookService.get());
-
-
-        for(Book book : bookService.get()) {
-            System.out.println(book.getId());
-        }
+//        for(Book book : bookService.get()) {
+//            System.out.println(book.getId());
+//        }
 
         return indexPage;
     }
 
-
-    @PostMapping("/add-book")
-    public String addBook(){
-        bookService.addBook("IBS39933", "ahryr", "aka");
-        return "addbook.html";
+    /* DELETE: Delete the book record on button press* */
+    @GetMapping("/deleteRecord")
+    public ModelAndView deleteRecord(@RequestParam Integer id, ModelMap model) {
+        bookService.deleteBook(id);
+        return redirectPage("listview", model);
     }
+
+
+    @PostMapping("/addBook")
+    public ModelAndView addBook(@RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model){
+        //Validation, for empty input.
+        Book newBook = new Book(isbn, bookname, authorname);
+        bookService.addBook(newBook);
+        return redirectPage("listview", model);
+    }
+
+
+
+
+
+
 //
 //    @PostMapping("/add-book")
 //    public ModelAndView addBook(){
