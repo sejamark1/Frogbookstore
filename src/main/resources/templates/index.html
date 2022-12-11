@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<div style="display: flex">
-    <h1> Bookstore records</h1>
+<div id="header" style="display: flex">
+    <h1 id="logo"> Bookstore records</h1>
 </div>
 
 
@@ -37,17 +37,16 @@
 <div  th:unless="${edit=='yes'}" id="main-container" style="display: flex">
 
     <div id="view-book-table">
-        <table>
-            <tr>
+        <table id="bookstore-table">
+            <tr id="table-header">
                 <th>Book Name </th>
                 <th>ISBN Number </th>
                 <th>Author </th>
             </tr>
-            <tr th:each="book : ${bookDetail}">
-                <td th:text="${book.getId()}"/>
-                <td th:text="${book.getIsbn_no()}"/>
-                <td th:text="${book.getBook_name()}"/>
-                <td th:text="${book.getAuthor_name()}"/>
+            <tr id="table-data-row" th:each="book : ${bookDetail}">
+                <td class="table-data" th:text="${book.getIsbn_no()}"/>
+                <td class="table-data" th:text="${book.getBook_name()}"/>
+                <td class="table-data" th:text="${book.getAuthor_name()}"/>
                 <td>
                     <a th:href="@{/deleteRecord(id=${book.getId()})}">
                         <input type="submit" value="Delete" />
@@ -63,7 +62,7 @@
         </table>
     </div>
 
-
+    <hr>
 
     <div id="add-book-form">
 
@@ -88,7 +87,34 @@
 
 
 
+<style>
 
+    body{
+        font-family: sans-serif;
+    }
+    #header{
+        background: #ebebeb;
+        margin: -6px;
+    }
+    #logo{
+        font-family: sans-serif;
+        padding: 10px;
+        background: black;
+        color: white;
+        margin: 13px;
+    }
+    #main-container{
+        padding-top: 20px;
+    }
+
+    #view-book-table{
+        padding-left: 10px;
+    }
+
+    #add-book-form{
+        padding-left: 100px;;
+    }
+</style>
 
 
 </body>
