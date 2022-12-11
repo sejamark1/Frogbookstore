@@ -11,5 +11,3 @@ INSERT INTO BOOKSTORE (isbn_no, book_name, author_name) VALUES ('9780450057779',
 INSERT INTO BOOKSTORE (isbn_no, book_name, author_name) VALUES ('9780450022852', 'Dune Messiah', 'Frank Herbert');
 INSERT INTO BOOKSTORE (isbn_no, book_name, author_name) VALUES ('9780340837450', 'The Road to Dune', 'Frank Herbert');
 INSERT INTO BOOKSTORE (isbn_no, book_name, author_name) VALUES ('9780450052620', 'God Emperor of Dune', 'Frank Herbert');
-
-
