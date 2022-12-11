@@ -27,16 +27,16 @@ public class BookstoreController {
         model.addAttribute("attribute", "redirectWithRedirectPrefix");
         return new ModelAndView("redirect:/" + redirectTo, model);
     }
+    //Adds data to the database. Seperate from the webpage.
+    public void addBookToDataBase(Book newBook){
+        bookService.addBook(newBook);
+    }
 
     /* READ: Fetch all the data from the database and pass it into the index.html file* */
     @GetMapping({"/listview", "/"})
     public ModelAndView method(){
         ModelAndView indexPage = new ModelAndView("index.html");
         indexPage.addObject("bookDetail", bookService.get());
-//        for(Book book : bookService.get()) {
-//            System.out.println(book.getId());
-//        }
-
         return indexPage;
     }
 
@@ -50,9 +50,8 @@ public class BookstoreController {
     /*CREATE: Create new entity for book*/
     @PostMapping("/addBook")
     public ModelAndView addBook(@RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model){
-        //Validation, for empty input.
         Book newBook = new Book(isbn, bookname, authorname);
-        bookService.addBook(newBook);
+        addBookToDataBase(newBook);
         return redirectPage("listview", model);
     }
 
@@ -72,15 +71,18 @@ public class BookstoreController {
     }
 
 
-
+    /* Data is updated here*/
     @PostMapping("/updateData")
     public ModelAndView updateData(@RequestParam String isbn, @RequestParam String bookname, @RequestParam String authorname, ModelMap model){
         System.out.println(editId);
         Book newBook = new Book(isbn, bookname, authorname);
         bookService.updateBook(editId, isbn, bookname, authorname);
-        //bookService.addBook(newBook);
         editId = null;
         return redirectPage("listview", model);
     }
+
+
+
+
 
 }
